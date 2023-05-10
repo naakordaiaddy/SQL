@@ -9,7 +9,7 @@
 
 I’m Kordai, a self-taught data analyst and human centered design enthusiast from California 🌄
 - 🫶🏾 Non-profit human-centered background. My values are cultural relativism, authenticity, people-first mindset, and service.
-- 📚 Loves working with numbers and learning new skills. I taught myself SQL and Tableau. Here’s a link to my recent project: https://github.com/naakordaiaddy/SQL/blob/main/Furniture%20Sales%20Database%20-%20HAVING%2C%20CASE%20WHEN 
+- 📚 Loves working with numbers and learning new skills. I taught myself SQL and Tableau. Here’s a link to my recent project: https://github.com/naakordaiaddy/SQL/blob/main/Celebrities_and_Spouses
 - 📊 Uses Excel for just about everything — budgeting, travel itinerary, ideas, task lists
 
 ### 💡 My Skills
