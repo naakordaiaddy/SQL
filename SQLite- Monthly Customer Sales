@@ -71,3 +71,21 @@ AND orderid <> 'Order ID';
 
 
 
+
+
+--Find orders between February 13, 2019 to February 18, 2019.
+SELECT orderdate
+FROM BIT_DB.FebSales
+WHERE orderdate between '02/13/19 00:00' AND '02/18/19 00:00';
+
+
+
+
+
+--Find the number of orders made on February 18, 2019.
+SELECT sum(quantity)
+FROM BIT_DB.FebSales 
+WHERE orderdate LIKE '02/18/19%';
+
+
+
