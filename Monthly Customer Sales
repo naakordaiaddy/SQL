@@ -1,0 +1,73 @@
+--Database was uploaded into SQLite editor. 
+
+
+--How many orders were placed in January?
+SELECT COUNT(orderID)
+FROM BIT_DB.JanSales
+WHERE length(orderid) = 6 
+AND orderid <> 'Order ID'; 
+
+    --WHERE and AND commands ensure clean data in this particular database.
+    
+
+--How many of those orders were for an iPhone?
+SELECT COUNT(orderID)
+FROM BIT_DB.JanSales
+WHERE Product = 'iPhone'
+AND length(orderid) = 6 
+AND orderid <> 'Order ID';
+
+
+
+
+--Select the customer account numbers for all the orders that were placed in February.
+SELECT customers.acctnum
+FROM BIT_DB.FebSales 
+JOIN customers 
+ON customers.order_id=FebSales.orderID;
+
+
+
+
+--Which product was the cheapest one sold in January, and what was the price?
+        --SUBQUERY I THINK 
+SELECT distinct Product, price
+FROM BIT_DB.JanSales
+WHERE price <= (SELECT MIN (price) FROM BIT_DB.JanSales)
+LIMIT 1;
+
+
+
+
+
+--What is the total revenue for each product sold in January?
+SELECT product, SUM(quantity)*price AS revenue
+FROM BIT_DB.JanSales
+WHERE Product IS NOT NULL AND Product <> ' '
+GROUP BY product
+ORDER BY revenue DESC;
+
+
+
+
+--Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+SELECT product, COUNT(product) AS amt_sold, SUM(Quantity)*price AS revenue
+FROM BIT_DB.FEBSales 
+WHERE location LIKE '%548 Lincoln St%';
+
+
+
+
+
+--How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
+SELECT COUNT(distinct cust.acctnum), avg(quantity*price)
+FROM BIT_DB.FebSales Feb
+LEFT JOIN BIT_DB.customers cust
+ON FEB.orderid=cust.order_id
+WHERE Feb.Quantity>2
+AND length(orderid) = 6 
+AND orderid <> 'Order ID';
+
+
+
+
