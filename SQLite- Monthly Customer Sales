@@ -2,11 +2,12 @@
 
 
 --How many orders were placed in January?
+```
 SELECT COUNT(orderID)
 FROM BIT_DB.JanSales
 WHERE length(orderid) = 6 
 AND orderid <> 'Order ID'; 
-
+```
     --WHERE and AND commands ensure clean data in this particular database.
     
 
