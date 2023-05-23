@@ -3,7 +3,7 @@
 
 --How many orders were placed in January?
 
-```SQL
+```sql
 
 SELECT COUNT(orderID)
 FROM BIT_DB.JanSales
