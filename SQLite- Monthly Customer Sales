@@ -3,8 +3,9 @@
 
 --How many orders were placed in January?
 
-```ruby
-    SELECT COUNT(orderID)
+````
+
+SELECT COUNT(orderID)
 FROM BIT_DB.JanSales
 WHERE length(orderid) = 6 
 AND orderid <> 'Order ID';
