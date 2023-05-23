@@ -2,7 +2,7 @@
 
 ---
 
-- 🔨 Feel free to click any repository above to view my SQL prowess. 
+- 🔨 Feel free to click any repository above to view a SQL Porfolio Project
 
 
 ### 🌟 About me
