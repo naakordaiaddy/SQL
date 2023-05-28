@@ -1,4 +1,4 @@
-### 🗺 Kordai’s SQL portfolio!
+# 🗺 Kordai’s SQL portfolio!
 
 ---
 
