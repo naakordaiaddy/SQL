@@ -84,7 +84,7 @@ SELECT product, ROUND(SUM(quantity)*price, 2) AS revenue
 FROM BIT_DB.JanSales
 WHERE Product IS NOT NULL AND Product <> ' '
 GROUP BY product
-ORDER BY revenue DESC
+ORDER BY revenue DESC;
 ```
 
 ### Steps: 
@@ -134,7 +134,7 @@ LEFT JOIN BIT_DB.customers cust
 ON FEB.orderid=cust.order_id
 WHERE Feb.Quantity>2
 AND length(orderid) = 6 
-AND orderid <> 'Order ID'
+AND orderid <> 'Order ID';
 ```
 
 ### Steps: 
@@ -149,3 +149,101 @@ AND orderid <> 'Order ID'
 | 278 | 13.83 |
 
 - There were 278 customers who ordered more than 2 products and spent an average of $13.83 in February.
+
+
+
+
+## 8. Which locations in New York received at least 3 orders in January, and how many orders did they each receive? 
+```ruby
+SELECT location, COUNT(location) AS order_amt
+FROM BIT_DB.JanSales
+WHERE location LIKE '%NY%'
+AND length(orderid) = 6 
+AND orderid <> 'Order ID'
+GROUP BY location
+HAVING COUNT(location)>=3;
+```
+
+### Steps: 
+- Use COUNT and GROUP BY to isolate `location` 
+- Use WHERE to find customers who live in New York 
+- Use HAVING to aggregate the `location` that received at least 3 orders
+
+### Answers: 
+| location | order_amt |
+| --- | --- |
+| 148 Elm St, New York City, NY 10001 | 3 |
+| 515 Lincoln St, New York City, NY 10001 | 3 |
+| 916 Pine St, New York City, NY 10001 | 3 |
+| 961 Jefferson St, New York City, NY 10001 | 4 |
+
+- There were 4 customers in New York that made 3 or more ord4rs in the month of January. 
+
+
+
+
+## 9. How many of each type of headphone were sold in February?
+```ruby
+SELECT product, SUM(quantity) AS quantity
+FROM BIT_DB.FebSales
+WHERE product LIKE '%headphone%'
+GROUP BY product;
+```
+
+### Steps: 
+- Use SUM and GROUP BY to find total amount of varying `quantity` sold
+- WHERE and LIKE to isolate `product` type 
+
+### Answer: 
+| product | quantity |
+| --- | --- |
+| Apple AirPods Headphones | 1013 |
+| Bose SoundSport Headphones | 844 |
+| Wired Headphones | 1282 |
+
+
+
+
+## 10. What was the average quantity of products purchased per account in February? 
+```ruby
+SELECT SUM(quantity)/count(cust.acctnum) AS avg_qty
+FROM BIT_DB.FebSales feb
+LEFT JOIN BIT_DB.customers cust
+ON cust.order_id=feb.orderID
+WHERE length(orderid) = 6 
+AND orderid <> 'Order ID';
+```
+
+###Steps: 
+- SUM and COUNT to find overall average not average of each account 
+- LEFT JOIN `FebSales` with `customers`
+
+### Answer: 
+| avg_qty |
+| --- |
+| 1 |
+
+- The average quanitty of products purchased per account in February is 1.
+
+
+
+
+## 11. Which product brought in the most revenue in January and how much revenue did it bring in total?
+```ruby
+SELECT product, SUM(quantity*price) AS revenue
+FROM BIT_DB.JanSales
+GROUP BY product
+ORDER BY product DESC
+LIMIT 1;
+```
+
+### Steps: 
+- Use SUM to find `revenue`
+- Use GROUP BY and ORDER BY to structure output by `product`
+
+### Answer: 
+| product | revenue |
+| --- | --- |
+| iPhone | 265300 |
+
+- The iPhone brought in the most revenue in January at $265,300.
