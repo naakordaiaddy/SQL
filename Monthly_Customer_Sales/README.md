@@ -1,5 +1,13 @@
 # Monthly Customer Sales with Clothing Company
 
+## Table of Contents
+- [Business Task](#business-task)
+- [Data Set](#data-set)
+- [Entity Relationship Diagram](#entity-relationship-diagram)
+- [Questions & Solutions][#questions-solutions]
+
+
+--
 ### Business Task 
 Analyze customer orders to garner general information on customer behavior and demographics. 
 
