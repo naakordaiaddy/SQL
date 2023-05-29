@@ -1,4 +1,4 @@
-# Monthly Customer Sales with Clothing Company
+# 🛍 Monthly Customer Sales with Clothing Company
 
 ## Table of Contents
 - [Business Task](#business-task)
