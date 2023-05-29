@@ -4,7 +4,7 @@
 - [Business Task](#business-task)
 - [Data Set](#data-set)
 - [Entity Relationship Diagram](#entity-relationship-diagram)
-- [Questions & Solutions][#questions-solutions]
+- [Questions & Solutions][#questions--solutions]
 
 
 --
