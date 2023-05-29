@@ -7,7 +7,6 @@ FROM BIT_DB.JanSales
 WHERE length(orderid) = 6 
 AND orderid <> 'Order ID';
 
-    --`WHERE` and `AND` ensure clean data in this particular database.
     
 
 --How many of those orders were for an iPhone?
@@ -30,7 +29,6 @@ ON customers.order_id=FebSales.orderID;
 
 
 --Which product was the cheapest one sold in January, and what was the price?
-        --SUBQUERY I THINK 
 SELECT distinct Product, price
 FROM BIT_DB.JanSales
 WHERE price <= (SELECT MIN (price) FROM BIT_DB.JanSales)
@@ -95,7 +93,7 @@ GROUP BY product;
 
 
 
---Which locations in New York received at least 3 orders in January, and how many orders did they each receive? (Hint: use HAVING).
+--Which locations in New York received at least 3 orders in January, and how many orders did they each receive? 
 SELECT location, COUNT(location)
 FROM BIT_DB.JanSales
 WHERE location LIKE '%New York%'
@@ -114,7 +112,7 @@ GROUP BY product;
 
 
 
---What was the average amount spent per account in February? (Hints: For this question, we want the average amount spent / number of accounts, not the amount spent by each account. To multiply, you can use the * symbol, and to divide, you can use the / symbol.)
+--What was the average amount spent per account in February?  
 SELECT distinct cust.acctnum, AVG(feb.price)
 FROM BIT_DB.FebSales feb
 LEFT JOIN BIT_DB.customers cust
@@ -124,7 +122,7 @@ GROUP BY cust.acctnum;
 
 
 
---What was the average quantity of products purchased per account in February? (Hint: just like question 3, we want the overall average, not the average for each account individually).
+--What was the average quantity of products purchased per account in February? 
 SELECT AVG(quantity)
 FROM BIT_DB.FebSales feb
 LEFT JOIN BIT_DB.customers cust
