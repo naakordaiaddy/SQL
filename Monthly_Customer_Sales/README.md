@@ -87,14 +87,14 @@ GROUP BY product
 ORDER BY revenue DESC
 ```
 
-## Steps: 
+### Steps: 
 - Use SUM and multiply by price to find the `quanitty` of each product sold
 - ROUND to display `revenue` as a depicted price
 - WHERE and NOT NULL removes incomplete information 
 - Use GROUP BY to group information by `product`
 - ORDER BY to view expesive to least expensive `product`
 
-## Answer:
+### Answer:
 | Product | revenue |
 | --- | --- |
 | MacBook Pro Laptop | 399500 |
@@ -104,3 +104,48 @@ ORDER BY revenue DESC
 | Apple AirPod Headphones | 122100 |
 
 
+
+
+## 6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+```ruby
+SELECT SUM(quantity) AS amt_sold, product, SUM(Quantity)*price AS revenue
+FROM BIT_DB.FEBSales 
+WHERE location LIKE '%548 Lincoln St%';
+```
+
+### Steps: 
+- Use COUNT and SUM to find all purchases made at that address
+- Use WHERE to isolate customer location 
+
+### Answer: 
+| amt_sold | product | revenue |
+| --- | --- | --- |
+| 2 | AA Batteries (4-pack) | 7.68 |
+
+- 2 Double-A batteries were sold for $7.68 at 548 Lincoln St, Seattle, WA 98101.
+
+
+
+## 7. How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
+``` ruby
+SELECT COUNT(distinct cust.acctnum), ROUND(AVG(quantity*price),2)
+FROM BIT_DB.FebSales Feb
+LEFT JOIN BIT_DB.customers cust
+ON FEB.orderid=cust.order_id
+WHERE Feb.Quantity>2
+AND length(orderid) = 6 
+AND orderid <> 'Order ID'
+```
+
+### Steps: 
+- Use COUNT distinct to find real `cust.acctnum`orders
+- Use LEFT JOIN to connect `FebSales` with `customers`
+- WHERE to isolate customers who ordered three or more items
+- AND used to avoid incoplete or NULL values in `orderid`
+
+### Answers: 
+| total_cust | avg_amt |
+| --- | --- |
+| 278 | 13.83 |
+
+- There were 278 customers who ordered more than 2 products and spent an average of $13.83 in February.
