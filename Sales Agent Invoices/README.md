@@ -42,7 +42,6 @@ WHERE Country <> 'USA';
 
 
 
-
 ### 2. Show only the Customers from Brazil.
 ```ruby
 SELECT FirstName, LastName, CustomerId, Country
@@ -94,27 +93,61 @@ WHERE Title = 'Sales Support Agent';
 ```
 
 ### Steps: 
+- Use WHERE to isolate only `employee` Sales Agents
 
 ### Answers:
+| LastName | FirstName |
+| --- | --- |
+| Peacock | Jane |
+| Park | Margaret |
+| Johnson | Steve |
 
---Find a unique/distinct list of billing countries from the Invoice table.
+- There are 3 sales agents that are on the team.
 
+
+
+
+
+### 5. Find a unique/distinct list of billing countries from the Invoice table.
+```ruby
 SELECT * 
 FROM chinook.invoices
 WHERE BillingCountry LIKE '%c';
+```
+
+### Steps:
+- Use WHERE to list all `BillingCountry` that start with the letter 'C'
+
+### Answer:
+| InvoiceId | CustomerID | InvoiceDate | BillingAddress | BillingCity | BillingState | BillingCountry | BillingPostingCode | Total |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 46 | 6 | 2009-07-11 00:00:00	 | Rilská 3174/6 | Prague | NULL | Czech Republic | 14300 | 8.91 |
+| 77 | 5 | 2009-12-08 00:00:00 | Klanova 9/506 | Prague | NULL | Czech Republic | 14700 | 1.98 |
+| 100 | 5 | 2010-03-12 00:00:00 | Klanova 9/506 | Prague | NULL | Czech Republic | 14700 | 3.96 |
 
 
 
---Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.
-    
+
+
+### 6. Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.
+```ruby
 SELECT emp.LastName, emp.Firstname, inv.InvoiceId
 FROM chinook.Employees emp 
 JOIN chinook.Customers cust 
 ON cust.SupportRepId = emp.EmployeeId
 JOIN chinook.Invoices Inv 
 ON Inv.CustomerId = cust.CustomerId;
+```
 
+### Steps: 
+- Use multiple INNER JOINS to connect `customers`, `employees`, `invoices` tables
 
+### Answer:
+| LastName | FirstName | InvoiceId |
+| --- | --- | --- |
+| Peacock | Jane | 98 |
+| Peacock | Jane | 121 |
+| Peacock | Jane | 143 |
 
 --Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
 
