@@ -9,10 +9,15 @@
 
 ---
 ### Business Task
+Analyze sales data to garner general information on all sales agents output and effeciency. 
+
 
 ### Data Set 
+- Invoice data from [yugabyteDB] (https://docs.yugabyte.com/preview/sample-data/chinook/)
+
 
 ### Entity Relationship Diagram 
+<img width="807" alt="Screen Shot 2023-06-13 at 9 21 51 PM" src="https://github.com/naakordaiaddy/SQL-Portfolio-Projects/assets/126539576/b0bdaffb-bfc0-4bbe-b8f8-d84626d23caf">
 
 ### Questions & Solutions
 
