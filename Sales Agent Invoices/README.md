@@ -151,13 +151,24 @@ ON Inv.CustomerId = cust.CustomerId;
 
 ### 7. Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
 ```ruby
-SELECT inv.Total, cust.FirstName, cust.LastName, cust.Country, emp.FirstName, emp.LastName
+SELECT inv.Total, cust.FirstName, cust.LastName, cust.Country, emp.FirstName AS 'AgentFirstName', emp.LastName AS 'AgentLastName'
 FROM chinook.customers cust
 JOIN chinook.invoices inv
 ON inv.InvoiceId=cust.CustomerId
 JOIN chinook.employees emp
-ON emp.EmployeeId=cust.SupportRepId;
+ON emp.EmployeeId=cust.SupportRepId
 ```
+### Steps: 
+- Use INNER JOIN to overalp  `customer`, `invoices`, and `employees` fields
+ 
+### Answer:
+| Total | FirstName | LastName | Country | AgentFirstName | AgentLastName |
+| --- | --- | --- | --- | --- | --- |
+| 1.98 | Luís | Gonçalves | Brazil | Jane | Peacock |
+| 3.96 | Leonie | Köhler | Germany | Steve | Johnson |
+| 5.94 | François | Tremblay | Canada | Jane | Peacock |
+
+
 
 
 ### 8. How many Invoices were there in 2009?
@@ -166,6 +177,17 @@ SELECT COUNT(InvoiceId) AS 'tot_invoices'
 FROM chinook.invoices
 WHERE InvoiceDate LIKE '%2009%';
 ```
+### Steps: 
+- Use WHERE to find the `InvoiceDate` that falls within the year of 2009.
+  
+### Answer: 
+| tot_invoices |
+| --- |
+| 83 |
+
+- There are 83 invoices in 2009.
+
+
 
 
 ### 9. What are the total sales for 2009?
@@ -175,6 +197,20 @@ FROM chinook.invoices
 WHERE InvoiceDate LIKE '%2009%';
 ```
 
+### Steps: 
+- Use SUM `Total` in `invoices` to find total sales
+- USE ROUND to give a standard amount output
+- Use WHERE to find the `InvoiceDate` that falls within the year of 2009.
+
+### Answer: 
+| tot_sales |
+| --- |
+| 449.46 |
+
+- Total Sales in 2009 were $449.46
+
+
+  
 
 ### 10. Write a query that includes the purchased track name with each invoice line ID.
 ```ruby
@@ -183,6 +219,18 @@ FROM chinook.tracks t
 INNER JOIN chinook.invoice_items i
 ON i.TrackId=t.TrackId;
 ```
+
+### Steps: 
+- User INNER JOIN to query overlapping fields within `tracks` and `invoice_items`
+  
+### Answer: 
+| Name | invoiceId |
+| --- | --- |
+| Balls to the Wall | 1 |
+| Restless and Wild | 1 |
+| Put the Finger On You | 2 |
+
+
 
 
 ### 11. Write a query that includes the purchased track name AND artist name with each invoice line ID.
@@ -197,6 +245,18 @@ JOIN chinook.artists art
 ON art.ArtistId=alb.ArtistId;
 ```
 
+### Steps: 
+- USE implicit INNER JOIN to query overlapping fields within `invoice_items`, `tracks`, `albums`, and `artists`
+
+### Answer:
+| TrackName | ArtistName |
+| --- | --- |
+| Balls to the Wall | Accept |
+| Restless and Wild | Accept |
+| Put the Finger On You | AC/DC |
+
+
+
 
 ### 12. Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
 ```ruby
@@ -210,6 +270,18 @@ JOIN chinook.genres gen
 ON gen.GenreId=tr.GenreId;
 ```
 
+### Steps: 
+- Use implicit INNER JOIN to query overlapping fields within `albums`, `tracks`, `media_types`, `genres`
+  
+### Answer:
+| Title | Name | GenreId |
+| --- | --- | --- |
+| For Those About To Rock We Salute You | MPEG audio file | 1 |
+| Balls to the Wall | Protected AAC audio file | 1 |
+| Restless and Wild | Protected AAC audio file | 1 |
+
+
+
 
 ### 13. Show the total sales made by each sales agent.
  ```ruby
@@ -220,8 +292,26 @@ ON cust.SupportRepId=emp.EmployeeId
 JOIN chinook.Invoices inv
 ON inv.CustomerId=cust.CustomerId
 WHERE emp.Title LIKE '%agent%'
-GROUP by emp.FirstName;
+GROUP BY emp.FirstName;
 ```
+
+### Steps: 
+- Use implicit INNER JOIN to query overlapping fields within `employees`, `customers`, `invoices`
+- Use WHERE to isolate only Sales Agents at the company
+- Use GROUP BY `FirstName` to show the total sales per agent
+
+### Answer:
+| FirstName | LastName | Total Sales |
+| --- | --- | --- |
+| Jane | Peacock | 833.04 |
+| Margaret | Park | 775.4 |
+| Steve | Johnson | 720.16 |
+
+
+- Jane Peacock had a total of $833.04 sales, Margaret Park had a total of $775,40 sales, and Steve Johnson had a total of $720.16 sales.
+
+
+
 
 ### 14. Which sales agent made the most dollars in sales in 2009?
 ```ruby
@@ -233,6 +323,20 @@ JOIN chinook.Invoices inv
 ON inv.CustomerId=cust.CustomerId
 WHERE inv.InvoiceDate LIKE '%2009%'
 GROUP BY emp.FirstName
-ORDER BY 'Total Sales' DESC
+ORDER BY 'Total Sales' ASC
 LIMIT 1;
 ```
+
+### Steps: 
+- Use implicit INNER JOIN to query overlapping fields within `employees`, `customers`, `invoices`
+- Use WHERE to isolate sales made in 2009
+- Use GROUP BY to group query by `FirstName`
+- Use ORDER BY to order query by `TotalSales`
+- Use LIMIT to show the top agent, as we our ouput will be in ASC by `Total Sales`
+  
+### Answer: 
+| FirstName | LastName | Total Sales |
+| --- | --- | --- |
+| Steve | Johnson | 164.34 |
+
+- Sales Agent Steve Johnson made the most dollars in sales in 2009, totalling $164.34.
