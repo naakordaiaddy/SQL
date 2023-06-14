@@ -19,41 +19,83 @@ Analyze sales data to garner general information on all sales agents output and 
 ### Entity Relationship Diagram 
 <img width="807" alt="Screen Shot 2023-06-13 at 9 21 51 PM" src="https://github.com/naakordaiaddy/SQL-Portfolio-Projects/assets/126539576/b0bdaffb-bfc0-4bbe-b8f8-d84626d23caf">
 
-### Questions & Solutions
-
---Show Customers (their full names, customer ID, and country) who are not in the US. 
-
+## Questions & Solutions
+### 1. Show Customers (their full names, customer ID, and country) who are not in the US. 
+```ruby
 SELECT FirstName, LastName, CustomerId, Country
 FROM chinook.customers
 WHERE Country <> 'USA';
+```
+
+### Steps: 
+- Use WHERE to isolate `customers` who are not located in the United States
+
+### Answer: 
+| FirstName | LastName | CustomerId | Country |
+| --- | --- | --- | --- |
+| Luís | Gonçalves | 1 | Brazil |
+| Leöne  | Koheler | 2 | Germany |
+| Françoise | Tremblay | 3 | Canada |
+
+- There were 46 customers who were not located in the US listed in the query.
 
 
 
---Show only the Customers from Brazil.
 
+
+### 2. Show only the Customers from Brazil.
+```ruby
 SELECT FirstName, LastName, CustomerId, Country
 FROM chinook.customers
 WHERE Country LIKE '%Brazil%';
+```
+
+### Steps: 
+- Use WHERE to isolate `customers` who are in located in the Brazil
+
+### Answer: 
+| FirstName | LastName | CustomerId | Country |
+| --- | --- | --- | --- |
+| Luís | Gonçalves | 1 | Brazil |
+| Eduardo | Martins | 10 | Brazil |
+| Alexandre | Roche | 11 | Brazil |
 
 
 
---Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country.
 
+### 3. Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country.
+```ruby
 SELECT c.FirstName, c.LastName, i.InvoiceID, i.InvoiceDate, i.BillingCountry
 FROM chinook.customers c
 INNER JOIN chinook.invoices i
 ON i.invoiceId=c.customerId
 WHERE i.BillingCountry LIKE '%Brazil%';
+```
+
+### Steps: 
+- Use INNER JOIN to overlap like fields within the `customers` & `invoices` table
+- Use WHERE to only show the invoices of `customers` form Brazil
+
+### Answer:
+| FirstName | LastName | InvoiceId | InvoiceDate | BillingCountry |
+| --- | --- | --- | --- | --- |
+| Victor | Stevens | 25 | 2009-04-09 00:00:00 | Brazil |
+| João | Fernandes | 34 | 2009-05-23 00:00:00 | Brazil |
+| Madalena | Sampaio | 35 | 2009-06-05 00:00:00 | Brazil |
 
 
 
---Show the Employees who are Sales Agents.
 
+### 4. Show the Employees who are Sales Agents.
+```ruby
 SELECT LastName, FirstName
 FROM chinook.employees
 WHERE Title = 'Sales Support Agent';
+```
 
+### Steps: 
 
+### Answers:
 
 --Find a unique/distinct list of billing countries from the Invoice table.
 
