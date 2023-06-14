@@ -1,3 +1,21 @@
+
+# 🧾 Sales Agent Invoices 
+
+## Table of Contents
+- [Business Task](#business-task)
+- [Data Set](#data-set)
+- [Entity Relationship Diagram](#entity-relationship-diagram)
+- [Questions & Solutions](#questions--solutions)
+
+---
+### Business Task
+
+### Data Set 
+
+### Entity Relationship Diagram 
+
+### Questions & Solutions
+
 --Show Customers (their full names, customer ID, and country) who are not in the US. 
 
 SELECT FirstName, LastName, CustomerId, Country
