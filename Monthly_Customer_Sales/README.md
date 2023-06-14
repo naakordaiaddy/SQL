@@ -42,7 +42,7 @@ AND orderid <> 'Order ID';
 
 
 
-## 2. How many of those orders were for an iPhone?
+### 2. How many of those orders were for an iPhone?
 ```ruby
 SELECT COUNT(orderID) AS total_jan_sales
 FROM BIT_DB.JanSales
@@ -66,7 +66,7 @@ AND orderid <> 'Order ID';
 
 
 
-## 4. Which product was the cheapest one sold in January, and what was the price?
+### 3. Which product was the cheapest one sold in January, and what was the price?
 ```ruby
 SELECT distinct Product, price
 FROM BIT_DB.JanSales
@@ -86,7 +86,7 @@ LIMIT 1;
 - The cheapest item sold in January was a 4-pack of Triple A batteries for $2.99
 
 
-## 5. What is the total revenue for each product sold in January?
+### 4. What is the total revenue for each product sold in January?
 ```ruby
 SELECT product, ROUND(SUM(quantity)*price, 2) AS revenue
 FROM BIT_DB.JanSales
@@ -114,7 +114,7 @@ ORDER BY revenue DESC;
 
 
 
-## 6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+### 5. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
 ```ruby
 SELECT SUM(quantity) AS amt_sold, product, SUM(Quantity)*price AS revenue
 FROM BIT_DB.FEBSales 
@@ -134,7 +134,7 @@ WHERE location LIKE '%548 Lincoln St%';
 
 
 
-## 7. How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
+### 6. How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
 ``` ruby
 SELECT COUNT(distinct cust.acctnum), ROUND(AVG(quantity*price),2)
 FROM BIT_DB.FebSales Feb
@@ -161,7 +161,7 @@ AND orderid <> 'Order ID';
 
 
 
-## 8. Which locations in New York received at least 3 orders in January, and how many orders did they each receive? 
+### 7. Which locations in New York received at least 3 orders in January, and how many orders did they each receive? 
 ```ruby
 SELECT location, COUNT(location) AS order_amt
 FROM BIT_DB.JanSales
@@ -190,7 +190,7 @@ HAVING COUNT(location)>=3;
 
 
 
-## 9. How many of each type of headphone were sold in February?
+### 8. How many of each type of headphone were sold in February?
 ```ruby
 SELECT product, SUM(quantity) AS quantity
 FROM BIT_DB.FebSales
@@ -212,7 +212,7 @@ GROUP BY product;
 
 
 
-## 10. What was the average quantity of products purchased per account in February? 
+### 9. What was the average quantity of products purchased per account in February? 
 ```ruby
 SELECT SUM(quantity)/count(cust.acctnum) AS avg_qty
 FROM BIT_DB.FebSales feb
@@ -236,7 +236,7 @@ AND orderid <> 'Order ID';
 
 
 
-## 11. Which product brought in the most revenue in January and how much revenue did it bring in total?
+### 10. Which product brought in the most revenue in January and how much revenue did it bring in total?
 ```ruby
 SELECT product, SUM(quantity*price) AS revenue
 FROM BIT_DB.JanSales
