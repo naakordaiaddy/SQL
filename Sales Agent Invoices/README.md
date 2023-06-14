@@ -149,43 +149,44 @@ ON Inv.CustomerId = cust.CustomerId;
 | Peacock | Jane | 121 |
 | Peacock | Jane | 143 |
 
---Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
-
+### 7. Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
+```ruby
 SELECT inv.Total, cust.FirstName, cust.LastName, cust.Country, emp.FirstName, emp.LastName
 FROM chinook.customers cust
 JOIN chinook.invoices inv
 ON inv.InvoiceId=cust.CustomerId
 JOIN chinook.employees emp
 ON emp.EmployeeId=cust.SupportRepId;
+```
 
 
-
---How many Invoices were there in 2009?
-
+### 8. How many Invoices were there in 2009?
+```ruby
 SELECT COUNT(InvoiceId) AS 'tot_invoices'
 FROM chinook.invoices
 WHERE InvoiceDate LIKE '%2009%';
+```
 
 
-
---What are the total sales for 2009?
-
+### 9. What are the total sales for 2009?
+```ruby
 SELECT ROUND(SUM(Total),2) AS 'tot_sales'
 FROM chinook.invoices
 WHERE InvoiceDate LIKE '%2009%';
+```
 
 
-
---Write a query that includes the purchased track name with each invoice line ID.
+### 10. Write a query that includes the purchased track name with each invoice line ID.
+```ruby
 SELECT t.Name, i.invoiceId
 FROM chinook.tracks t
 INNER JOIN chinook.invoice_items i
 ON i.TrackId=t.TrackId;
+```
 
 
-
---Write a query that includes the purchased track name AND artist name with each invoice line ID.
-
+### 11. Write a query that includes the purchased track name AND artist name with each invoice line ID.
+```ruby
 SELECT tr.Name, art.Name, inv.InvoiceId
 FROM chinook.invoice_items inv
 JOIN chinook.tracks
@@ -194,11 +195,11 @@ JOIN chinook.albums alb
 ON alb.AlbumId=tra.AlbumId
 JOIN chinook.artists art
 ON art.ArtistId=alb.ArtistId;
+```
 
 
-
---Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
-
+### 12. Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
+```ruby
 SELECT alb.Title, med.Name, gen.GenreId
 FROM chinook.albums alb
 JOIN chinook.tracks tr
@@ -207,11 +208,11 @@ JOIN chinook.media_types med
 ON med.MediaTypeId=tr.MediaTypeId
 JOIN chinook.genres gen
 ON gen.GenreId=tr.GenreId;
+```
 
 
-
---Show the total sales made by each sales agent.
- 
+### 13. Show the total sales made by each sales agent.
+ ```ruby
 SELECT emp.FirstName, emp.LastName, ROUND(SUM(inv.Total),2) as 'Total Sales'
 FROM chinook.Employees emp
 JOIN chinook.Customers cust 
@@ -220,9 +221,10 @@ JOIN chinook.Invoices inv
 ON inv.CustomerId=cust.CustomerId
 WHERE emp.Title LIKE '%agent%'
 GROUP by emp.FirstName;
+```
 
-
---Which sales agent made the most dollars in sales in 2009?
+### 14. Which sales agent made the most dollars in sales in 2009?
+```ruby
 SELECT emp.FirstName, emp.LastName, ROUND(SUM(inv.Total),2) as 'Total Sales'
 FROM chinook.Employees emp
 JOIN chinook.Customers cust 
@@ -233,3 +235,4 @@ WHERE inv.InvoiceDate LIKE '%2009%'
 GROUP BY emp.FirstName
 ORDER BY 'Total Sales' DESC
 LIMIT 1;
+```
