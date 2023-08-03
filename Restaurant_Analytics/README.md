@@ -270,3 +270,81 @@ ORDER BY customer_id ASC;
 - Customer A's first order as a member is ramen.
 - Customer B's first order as a member is sushi.
 
+
+## 8. What is the total items and amount spent for each member before they became a member?
+```ruby
+SELECT 
+  sales.customer_id, 
+  COUNT(sales.product_id) AS total_items, 
+  SUM(menu.price) AS total_sales
+FROM dannys_diner.sales
+INNER JOIN dannys_diner.members
+  ON sales.customer_id = members.customer_id
+  AND sales.order_date < members.join_date
+INNER JOIN dannys_diner.menu
+  ON sales.product_id = menu.product_id
+GROUP BY sales.customer_id
+ORDER BY sales.customer_id;
+```
+
+### Steps:
+
+- Select the columns sales.customer_id and calculate the count of `sales.product_id` as `total_items` for each customer and the sum of `menu.price` as `total_sales.`
+- From dannys_diner.sales table, join dannys_diner.members table on customer_id column, ensuring that sales.order_date is earlier than `members.join_date (sales.order_date < members.join_date).`
+- Then, join `dannys_diner.menu` table to `dannys_diner.sales` table on `product_id` column.
+- Group the results by `sales.customer_id.`
+- Order the result by `sales.customer_id` in ascending order.
+
+### Answer:
+
+|customer_id	|total_items	|total_sales|
+|---|---|---|
+|A	|2|	25|
+|B|	3	|40|
+
+Before becoming members,
+- Customer A spent $25 on 2 items.
+- Customer B spent $40 on 3 items.
+
+## 9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier — how many points would each customer have?
+```ruby
+WITH points_cte AS (
+  SELECT 
+    menu.product_id, 
+    CASE
+      WHEN product_id = 1 THEN price * 20
+      ELSE price * 10 END AS points
+  FROM dannys_diner.menu
+)
+
+SELECT 
+  sales.customer_id, 
+  SUM(points_cte.points) AS total_points
+FROM dannys_diner.sales
+INNER JOIN points_cte
+  ON sales.product_id = points_cte.product_id
+GROUP BY sales.customer_id
+ORDER BY sales.customer_id;
+```
+
+### Steps:
+Let's break down the question to understand the point calculation for each customer's purchases.
+
+- Each $1 spent = 10 points. However, product_id 1 sushi gets 2x points, so each $1 spent = 20 points.
+- Here's how the calculation is performed using a conditional `CASE` statement:
+- If `product_id` = 1, multiply every $1 by 20 points.
+- Otherwise, multiply $1 by 10 points.
+- Then, calculate the total points for each customer.
+
+### Answer:
+|customer_id	|total_points|
+|---|---|
+|A	|860|
+|B	|940|
+|C	|360|
+
+- Total points for Customer A is $860.
+- Total points for Customer B is $940.
+- Total points for Customer C is $360.
+
+
