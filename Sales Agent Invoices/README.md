@@ -22,7 +22,10 @@ Analyze sales data to garner general information on all sales agents output and 
 ## Questions & Solutions
 ### 1. Show Customers (their full names, customer ID, and country) who are not in the US. 
 ```ruby
-SELECT FirstName, LastName, CustomerId, Country
+SELECT FirstName,
+  LastName,
+  CustomerId,
+  Country
 FROM chinook.customers
 WHERE Country <> 'USA';
 ```
@@ -44,7 +47,11 @@ WHERE Country <> 'USA';
 
 ### 2. Show only the Customers from Brazil.
 ```ruby
-SELECT FirstName, LastName, CustomerId, Country
+SELECT
+  FirstName,
+  LastName,
+  CustomerId,
+  Country
 FROM chinook.customers
 WHERE Country LIKE '%Brazil%';
 ```
@@ -64,7 +71,11 @@ WHERE Country LIKE '%Brazil%';
 
 ### 3. Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country.
 ```ruby
-SELECT c.FirstName, c.LastName, i.InvoiceID, i.InvoiceDate, i.BillingCountry
+SELECT c.FirstName,
+  c.LastName,
+  i.InvoiceID,
+  i.InvoiceDate,
+  i.BillingCountry
 FROM chinook.customers c
 INNER JOIN chinook.invoices i
 ON i.invoiceId=c.customerId
@@ -87,7 +98,8 @@ WHERE i.BillingCountry LIKE '%Brazil%';
 
 ### 4. Show the Employees who are Sales Agents.
 ```ruby
-SELECT LastName, FirstName
+SELECT LastName,
+  FirstName
 FROM chinook.employees
 WHERE Title = 'Sales Support Agent';
 ```
@@ -131,7 +143,9 @@ WHERE BillingCountry LIKE '%c';
 
 ### 6. Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.
 ```ruby
-SELECT emp.LastName, emp.Firstname, inv.InvoiceId
+SELECT emp.LastName,
+  emp.Firstname,
+  inv.InvoiceId
 FROM chinook.Employees emp 
 JOIN chinook.Customers cust 
 ON cust.SupportRepId = emp.EmployeeId
@@ -151,7 +165,12 @@ ON Inv.CustomerId = cust.CustomerId;
 
 ### 7. Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
 ```ruby
-SELECT inv.Total, cust.FirstName, cust.LastName, cust.Country, emp.FirstName AS 'AgentFirstName', emp.LastName AS 'AgentLastName'
+SELECT inv.Total,
+  cust.FirstName,
+  cust.LastName,
+  cust.Country,
+  emp.FirstName AS 'AgentFirstName',
+  emp.LastName AS 'AgentLastName'
 FROM chinook.customers cust
 JOIN chinook.invoices inv
 ON inv.InvoiceId=cust.CustomerId
@@ -235,7 +254,9 @@ ON i.TrackId=t.TrackId;
 
 ### 11. Write a query that includes the purchased track name AND artist name with each invoice line ID.
 ```ruby
-SELECT tr.Name, art.Name, inv.InvoiceId
+SELECT tr.Name,
+ art.Name,
+ inv.InvoiceId
 FROM chinook.invoice_items inv
 JOIN chinook.tracks
 ON inv.TrackId = tr.TrackId
@@ -260,7 +281,9 @@ ON art.ArtistId=alb.ArtistId;
 
 ### 12. Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
 ```ruby
-SELECT alb.Title, med.Name, gen.GenreId
+SELECT alb.Title,
+ med.Name,
+ gen.GenreId
 FROM chinook.albums alb
 JOIN chinook.tracks tr
 ON alb.AlbumId=tr.AlbumId
@@ -285,7 +308,9 @@ ON gen.GenreId=tr.GenreId;
 
 ### 13. Show the total sales made by each sales agent.
  ```ruby
-SELECT emp.FirstName, emp.LastName, ROUND(SUM(inv.Total),2) as 'Total Sales'
+SELECT emp.FirstName,
+ emp.LastName,
+ ROUND(SUM(inv.Total),2) AS 'Total Sales'
 FROM chinook.Employees emp
 JOIN chinook.Customers cust 
 ON cust.SupportRepId=emp.EmployeeId
@@ -315,7 +340,9 @@ GROUP BY emp.FirstName;
 
 ### 14. Which sales agent made the most dollars in sales in 2009?
 ```ruby
-SELECT emp.FirstName, emp.LastName, ROUND(SUM(inv.Total),2) as 'Total Sales'
+SELECT emp.FirstName,
+ emp.LastName,
+ ROUND(SUM(inv.Total),2) AS 'Total Sales'
 FROM chinook.Employees emp
 JOIN chinook.Customers cust 
 ON cust.SupportRepId=emp.EmployeeId
